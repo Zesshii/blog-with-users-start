@@ -9,13 +9,12 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
-from dotenv import load_dotenv
+from boto.s3.connection import S3Connection
 import os
 
-
-load_dotenv("D:/EnvironmentalVariables/.env.txt")
+s3 = S3Connection(os.environ['S3_KEY'], os.environ['S3_SECRET'])
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
+app.config['SECRET_KEY'] = s3
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
